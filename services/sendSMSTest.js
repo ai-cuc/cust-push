@@ -1,10 +1,10 @@
 exports.title = '发送OTP短信密码(查短信发送表)';
-exports.path = '/sendSMSPassword';
+exports.path = '/sendSMSTest';
 exports.request = {
   tele: '15620001781', // 发送目标号码
   content: '账单访问密码为123456,5分钟内有效', // 发送内容
 };
-// curl http://localhost:3003/sendSMSPassword
+// curl http://localhost:3003/sendSMSTest
 
 // 直接从 PLSQL developer IDE 中竖排展示行后粘贴出来，替换 tab 为 ": "
 const bind = `
@@ -42,32 +42,17 @@ bind.split('\n').slice(1, -1).forEach((line, i) => {
 colnames = colnames.join(',');
 colvalues = colvalues.join(',');
 const SQL = `insert into ucr_crm1.ti_o_sms(${colnames}) values (${colvalues})`;
-console.log(SQL);
+// console.log(SQL);
 
-exports.service = function* sendSMSPassword(next) {
-  const c = yield oracledb.getConnection('sms');
-  c.module = 'internet-bill-push';
-
-  // 先尝试下能查询访问吗
-  const result = yield c.execute(`
-    SELECT * FROM ucr_crm1.ti_o_sms a WHERE a.recv_object = :1`, [
-      '17612283505',
-    ]);
-  this.body = result.rows;
-
-  // 插入
-  if (1) {
-    const result = yield c.execute(SQL, {
+exports.service = function* () {
+  yield getConn('sms', async (c) => {
+    const result = await c.execute(SQL, {
       RECV_OBJECT: '15620001781',
-      NOTICE_CONTENT: 'OTP test',
+      NOTICE_CONTENT: `OTP test ${new Date()}`,
       REFER_TIME: '2017-06-30 16:21:27',
       DEAL_TIME: '2017-06-30 16:21:27',
-      MONTH: 6,
+      MONTH: 7,
     });
-    yield c.commit();
     this.body = result;
-  }
-
-  yield c.close();
-  yield next;
+  });
 };
