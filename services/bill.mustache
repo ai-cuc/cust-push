@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <link href="https://cdn.bootcss.com/bulma/0.4.3/css/bulma.min.css" rel="stylesheet">
+  <link href="https://cdn.bootcss.com/foundation-essential/6.2.2/css/foundation.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+</head>
+
+<body>
+  <h1>{{outBinds.v_resultcode}}<h1>
+
+  {{#outBinds.v_resultcode}}
+  <h1>{{outBinds.v_resulterrinfo}}</h1>
+  {{/outBinds.v_resultcode}}
+
+<h3>尊敬的用户，您好：</h3>
+您在联通公司定制的套餐标准 196元，享受折扣 7 折，折扣优惠 55 元，赠款 0 元，实际收款 151 元。<br/>
+您上月结转 300M 流量，截止目前剩余 100M 流量。<br/>
+您的月结账单如下：
+
+<h2>智慧沃家组合版月结账单</h2>
+<h3>账单月份{{params.cycle_id}}</h3>
+<div class="table-scroll">
+  <table class="pure-table pure-table-bordered" style="width:100%;">
+    <thead>
+      <tr>
+        <th>业务号码</th>
+        <th>客户名称</th>
+        <th>发票账目名称</th>
+        <th>综合账目名称</th>
+        <th>计费应收</th>
+        <th>折扣优惠</th>
+        <th>赠送金额</th>
+        <th>实际应收</th>
+        <th>实际收款</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each rows}}
+        <tr>
+          <td>{{F1}}</td>
+          <td>{{F2}}</td>
+          <td>{{F3}}</td>
+          <td>{{F4}}</td>
+
+          <td>{{F11}}</td>
+          <td>{{F12}}</td>
+          <td>{{F13}}</td>
+          <td>{{F14}}</td>
+          <td>{{F15}}</td>
+
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+<p>温馨提示：实际应收 = 计费应收 - 折扣优惠 - 赠款金额</p>
+</body>
+
+</html>
