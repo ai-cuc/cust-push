@@ -15,6 +15,11 @@ exports.request = {
   month: '201706', // 账期月份
 };
 
+function lastMonth() { // 根据当前时间，获取上一月账期字符串 yyyymm
+  const d = new Date();
+  return (200000 + (d.getYear() % 100) * 100 + d.getMonth()).toString(10);
+}
+
 exports.service = async (ctx, next) => {
   // 计算哈希验证码，进行非法构建 url 访问的检测
   const hash = crypto.createHash('sha512');
@@ -22,7 +27,11 @@ exports.service = async (ctx, next) => {
   hash.update(data);
   const realHash = hash.digest('hex');
   if (realHash !== ctx.params.hash) { // 非系统构建的 url/hash
+    // console.log(realHash);
     ctx.throw(400, '非法构建url访问');
+  }
+  if (ctx.params.cycle_id !== lastMonth()) { // 禁止看老账期账单
+    ctx.throw(401, '系统只支持访问上一月账单');
   }
 
   const bindvars = {
