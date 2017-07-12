@@ -56,6 +56,13 @@ exports.service = async (ctx, next) => {
     result.params = ctx.params;
     ctx.body = template(result);
     // console.log(result);
+  }).catch((e) => {
+    console.error('in bill');
+    console.error(e);
+    // ctx.throw(504, '系统忙，请稍后再试');
+    ctx.statusCode = 504;
+    ctx.type = 'html';
+    ctx.body = '<h1>系统忙，请稍后再试</h1>';
   });
   await next();
 };
