@@ -20,6 +20,30 @@ function lastMonth() { // 根据当前时间，获取上一月账期字符串 yy
   return (200000 + (d.getYear() % 100) * 100 + d.getMonth()).toString(10);
 }
 
+function addRowspan(rows) {
+  const len = rows.length;
+  let tele = '';
+  const sum = '';
+  let teleCount = 0;
+  const sumCount = 0;
+  for (let i = len - 2; i >= 0; i--) {
+    const row = rows[i];
+    if (row.F1 !== tele) { // 新开一行
+      if (tele) { // 先结束上一组处理
+        rows[i + 1].F1rowspan = teleCount;
+        rows[i + teleCount].F3colspan = 2;
+      }
+      teleCount = 1;
+      tele = row.F1;
+    } else {
+      teleCount++;
+    }
+  }
+  rows[0].F1rowspan = teleCount;
+  rows[teleCount - 1].F3colspan = 2;
+  rows[len - 1].last = true;
+}
+
 exports.service = async (ctx, next) => {
   // 计算哈希验证码，进行非法构建 url 访问的检测
   const hash = crypto.createHash('sha512');
@@ -63,6 +87,7 @@ exports.service = async (ctx, next) => {
     result.rows = await result.outBinds.v_cur.getRows(1000);
     // ctx.body = JSON.stringify(result, null, 2);
     result.params = ctx.params;
+    addRowspan(result.rows);
     ctx.body = template(result);
     // console.log(result);
   }).catch((e) => {
