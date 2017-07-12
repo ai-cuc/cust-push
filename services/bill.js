@@ -22,8 +22,7 @@ exports.service = async (ctx, next) => {
   hash.update(data);
   const realHash = hash.digest('hex');
   if (realHash !== ctx.params.hash) { // 非系统构建的 url/hash
-    ctx.body = '非法访问请求';
-    return;
+    ctx.throw(400, '非法构建url访问');
   }
 
   const bindvars = {
