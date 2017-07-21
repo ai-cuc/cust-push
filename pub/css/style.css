@@ -55,6 +55,9 @@ body { background:#f6f6f6; height:100%; font-size:18%; color:#333; line-height:1
 .content > p {
 	margin: 0.1rem 0;
 }
+.header {
+	letter-spacing: 2px;
+}
 .header h1{
 	font-size: 0.26rem;
 	font-weight: bold;
