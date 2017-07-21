@@ -2,7 +2,7 @@ const Handlebars = require('handlebars');
 const crypto = require('crypto');
 const secret = require('../lib/secret.js');
 
-const source = require('fs').readFileSync('./bill.mustache', {
+const source = require('fs').readFileSync('./bill2.mustache', {
   encoding: 'utf-8',
 });
 
@@ -73,6 +73,10 @@ exports.service = async (ctx, next) => {
       type: oracledb.CURSOR,
       dir: oracledb.BIND_OUT,
     },
+    v_cur1: {
+      type: oracledb.CURSOR,
+      dir: oracledb.BIND_OUT,
+    },
     v_resultcode: {
       type: oracledb.NUMBER,
       dir: oracledb.BIND_OUT,
@@ -83,8 +87,9 @@ exports.service = async (ctx, next) => {
     },
   };
   await getConn('bill', async (c) => {
-    const result = await c.execute('BEGIN p_sdr_individ_bill_out(:v_serial_number, :v_cycle_id, :v_cur, :v_resultcode, :v_resulterrinfo); END;', bindvars);
+    const result = await c.execute('BEGIN p_sdr_individ_bill_out(:v_serial_number, :v_cycle_id, :v_cur, :v_cur1, :v_resultcode, :v_resulterrinfo); END;', bindvars);
     result.rows = await result.outBinds.v_cur.getRows(1000);
+    result.main = (await result.outBinds.v_cur1.getRows(1))[0];
     // ctx.body = JSON.stringify(result, null, 2);
     result.params = ctx.params;
     addRowspan(result.rows);

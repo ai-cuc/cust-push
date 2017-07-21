@@ -1,0 +1,99 @@
+@charset "utf-8";
+
+* { margin:0; padding:0; list-style:none; outline:0 none; cursor:default;  -webkit-focus-ring-color:rgba(0, 0, 0, 0); -webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+html { height:100%; font-size:100px; -webkit-user-select:none;}
+body,h1,h2,h3,h4,h5,ul,li,dl,dd,dt,div,img,a,p,span,i,em,td,tr,table,input,textarea,select img{	margin: 0;	border: 0;	padding: 0;	font-family: "微软雅黑"; font-weight:normal;}
+
+body { background:#f6f6f6; height:100%; font-size:18%; color:#333; line-height:1; position:relative; width:100%; box-sizing:border-box; font-size: 0.2rem;}
+@media (min-width:0px   ) { html { font-size: 66.66px;}}
+@media (min-width:480px ) { html { font-size:100.00px;}}
+@media (min-width:540px ) { html { font-size:112.50px;}}
+@media (min-width:640px ) { html { font-size:133.33px;}}
+@media (min-width:720px ) { html { font-size:150.00px;}}
+@media (min-width:768px ) { html { font-size:160.00px;}}
+@media (min-width:800px ) { html { font-size:166.67px;}}
+@media (min-width:1024px) { html { font-size:213.33px;}}
+@media (min-width:1080px) { html { font-size:225.00px;}}
+@media (min-width:1200px) { html { font-size:250.00px;}}
+@media (min-width:1280px) { html { font-size:266.67px;}}
+@media (min-width:1366px) { html { font-size:284.58px;}}
+@media (min-width:1536px) { html { font-size:320.00px;}}
+@media (min-width:1600px) { html { font-size:333.33px;}}
+@media (min-width:1920px) { html { font-size:400.00px;}}
+@media (min-width:2048px) { html { font-size:426.67px;}}
+@media (min-width:2560px) { html { font-size:533.33px;}}
+
+.main{
+	width: calc(100% - 0.24rem);
+	margin: 0.12rem;
+	background: #fff url(../img/bg_03.png) no-repeat 0% 98%;
+	background-size: 100%;
+	border-radius: 0.15rem;
+	border: 0.02rem dashed #ddd;
+	box-sizing: border-box;
+}
+.badge img{
+	width:1.28rem;
+	position: absolute;
+	top: -0.12rem;
+	left: 0;
+}
+.header{
+	padding:0.12rem;
+}
+.logo{
+	height: 0.78rem;
+	float:right;
+}
+.logo img{
+	height:100%;
+}
+.content{
+	padding:0.34rem 0 0 0.34rem;
+	line-height:0.34rem;
+}
+.content > p {
+	margin: 0.1rem 0;
+}
+.header h1{
+	font-size: 0.26rem;
+	font-weight: bold;
+	line-height: 0.5rem;
+}
+.header h2{
+	font-size: 0.22rem;
+	font-weight: bold;
+}
+.line-height-5{
+	line-height:0.5rem;
+}
+.text-center{
+	text-align:center;
+}
+.bill-table{
+	width:100%;
+	border-collapse:collapse;
+	box-sizing: border-box;
+	text-align: center;
+	background: url(../img/bg_02.png) no-repeat 98% 80%;
+	background-size: 60%;
+}
+.bill-table th{
+	border: 1px solid #333;
+	background: #5870b0;
+	color: #fff;
+	font-size: 0.2rem;
+	font-weight: normal;
+	padding: 0.18rem 0.02rem;
+}
+.bill-table td{
+	border: 1px solid #333;
+	font-size: 0.18rem;
+	padding: 0.1rem 0.02rem;
+}
+.footer{
+	height:0.8rem;
+	padding-top:0.12rem;
+	font-size:0.18rem;
+	font-weight:bold;
+}

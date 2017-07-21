@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <link href="/css/style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <div class="main">
+    <div class="badge"><img src="/img/bg_01.png"></div>
+    <div class="header">
+      <div class="logo"><img src="/img/logo.png"></div>
+      <div class="content">
+        <h2 class="line-height-5">尊敬的用户，您好：</h2>
+        <p style>您在联通公司定制的套餐标准 {{main.STANDARD_FEE}} 元，享受折扣 {{main.DISCNT_RATE}} 折，折扣优惠 {{main.DISCNT_FEE}} 元，赠款 {{main.WRITEOFF_FEE}} 元，实际收款 {{main.SJ_FEE}} 元。</p>
+        <p>您上月结转 ?M 流量，截止目前剩余 ?M 流量。</p>
+        <p>您的月结账单如下：</p>
+      </div>
+      <h1 class="text-center">智慧沃家组合版月结账单</h1>
+      <h2 class="text-center">账单月份 {{params.cycle_id}}</h2>
+    </div>
+    <div class="">
+      <table class="bill-table">
+        <thead>
+          <tr>
+            <th>业务号码</th>
+            <th>客户名称</th>
+            <th>发票账目名称</th>
+            <th>综合账目名称</th>
+            <th>计费应收</th>
+            <th>折扣优惠</th>
+            <th>赠送金额</th>
+            <th>实际应收</th>
+            <th>实际收款</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each rows}}
+            <tr>
+              {{#unless last}}
+                {{#if F1rowspan}}
+                  <td rowspan="{{F1rowspan}}" style="vertical-align:middle;">{{F1}}</td>
+                {{/if}}
+                {{#if F1rowspan}}
+                  <td rowspan="{{F1rowspan}}" style="vertical-align:middle;">{{F2}}</td>
+                {{/if}}
+                {{#if F3colspan}}
+                  <td colspan="2" style="text-align:center">小计</td>
+                {{/if}}
+                {{#unless F3colspan}}
+                  <td>{{F3}}</td>
+                  <td>{{F4}}</td>
+                {{/unless}}
+              {{/unless}}
+
+              {{#if last}}
+                <td colspan="4" style="text-align:center">总计</td>
+              {{/if}}
+
+              <td>{{F11}}</td>
+              <td>{{F12}}</td>
+              <td>{{F13}}</td>
+              <td>{{F14}}</td>
+              <td>{{F15}}</td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+    <div class="footer">温馨提示：实际应收 = 计费应收 - 折扣优惠 - 赠款金额</div>
+  </div>
+</body>
+
+</html>
