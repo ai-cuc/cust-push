@@ -11,7 +11,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.16.2",
     "co": "^4.6.0",
+    "date-fns": "^1.28.5",
     "handlebars": "^4.0.10",
     "koa": "^2.3.0",
     "koa-body": "^2.3.0",
