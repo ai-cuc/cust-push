@@ -58,6 +58,36 @@ exports.service = async (ctx, next) => {
     ctx.throw(401, '系统只支持访问上一月账单');
   }
 
+  const flowReq = {
+    method: 'ecaop.trades.query.comm.flow.qry',
+    msg: {
+      busiType: '01', // 01手机流量，02上网卡流量
+      qryMonth: ctx.params.cycle_id,
+      number: ctx.params.serial_number,
+    },
+  };
+  let flowResp;
+  try {
+    flowRes = await aopCall(flowReq);
+    console.log(flowResp);
+  } catch (e) {
+    // 模拟一个
+    flowResp = {
+      chargeFlow: '0',
+      otherFlow: '1362524',
+      otherRemFlow: '3145728',
+      otherUseFlow: '0',
+      overtopFlow: '0',
+      setTotalFlow: '3145728',
+      setTotalRemainFlow: '3145728',
+      setTotalUseFlag: '0',
+      setTotalUseFlow: '0',
+      totalFlow: '1362524',
+      carryTotalFlow_: '1000000', // 实测 aop 未返回此字段
+      carryRemainFlow_: '1000000', // 实测 aop 未返回此字段
+    };
+  }
+
   const bindvars = {
     v_serial_number: {
       val: ctx.params.serial_number,
@@ -90,9 +120,14 @@ exports.service = async (ctx, next) => {
     const result = await c.execute('BEGIN p_sdr_individ_bill_out(:v_serial_number, :v_cycle_id, :v_cur, :v_cur1, :v_resultcode, :v_resulterrinfo); END;', bindvars);
     result.rows = await result.outBinds.v_cur.getRows(1000);
     result.main = (await result.outBinds.v_cur1.getRows(1))[0];
+    if (flowResp && flowResp.carryTotalFlow) {
+      result.main.carryTotalFlow = Math.floor(parseInt(flowResp.carryTotalFlow) / 1000);
+      result.main.carryRemainFlow = Math.floor(parseInt(flowResp.carryRemainFlow) / 1000);
+    }
     // ctx.body = JSON.stringify(result, null, 2);
     result.params = ctx.params;
     addRowspan(result.rows);
+    // console.log(JSON.stringify(result, null, 2));
     ctx.body = template(result);
     // console.log(result);
   }).catch((e) => {
