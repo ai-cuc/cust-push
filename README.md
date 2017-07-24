@@ -11,8 +11,25 @@ http://${HOST}/bill/${融合业务主手机号码}/${账期}/${校验码}，
 如：    
 http://60.28.151.82/bill/15620001781/201706   
 
+oracle 存储过程计算 url 校验码，使用 DBMS_CRYPTO 的 SHA-1 算法计算哈希值，
+[参考](http://docs.oracle.com/cd/B19306_01/appdev.102/b14258/d_crypto.htm#i1005082)
 
-其中校验码是 hash(serial_number, cycle_id, secret) 的结果
+注：Data of type VARCHAR2 must be converted to RAW before you can use DBMS_CRYPTO functions to encrypt it.
+
+```plsql
+declare
+  r raw(1024);
+begin
+  r := DBMS_CRYPTO.MAC(
+   src => UTL_I18N.STRING_TO_RAW ('15620001781.201706'),
+   typ => DBMS_CRYPTO.HMAC_SH1,
+   key => hextoraw('00112233445566778899aabbccddeeff'));
+  dbms_output.put_line(rawtohex(r));
+  dbms_output.put_line('http://60.28.151.82:3003/bill/15620001781/201706/' || rawtohex(r));
+end;
+```
+
+其中校验码是 hmac(serial_number.cycle_id, key) 的结果
 
 系统接收到恶心窥探的 url 时，校验码若不是系统生成，可以检测出来，并且报告 400 "bad request"
 

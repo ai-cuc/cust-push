@@ -1,6 +1,6 @@
 const Handlebars = require('handlebars');
 const crypto = require('crypto');
-const secret = require('../lib/secret.js');
+const secret = require('../lib/secret.js')();
 
 const source = require('fs').readFileSync('./bill2.mustache', {
   encoding: 'utf-8',
@@ -46,11 +46,12 @@ function addRowspan(rows) {
 
 exports.service = async (ctx, next) => {
   // 计算哈希验证码，进行非法构建 url 访问的检测
-  const hash = crypto.createHash('sha512');
-  const data = `${ctx.params.serial_number}.${ctx.params.cycle_id}.${secret}`;
-  hash.update(data);
-  const realHash = hash.digest('hex');
-  if (realHash !== ctx.params.hash) { // 非系统构建的 url/hash
+  const hmac = crypto.createHmac('sha1', secret);
+  hmac.update(new Buffer(`${ctx.params.serial_number}.${ctx.params.cycle_id}`, 'ascii'));
+  const realHash = hmac.digest('hex');
+  console.log(realHash);
+
+  if (realHash !== ctx.params.hash.toLowerCase()) { // 非系统构建的 url/hash
     // console.log(realHash);
     ctx.throw(400, '非法构建url访问');
   }
