@@ -9,7 +9,7 @@
 
 http://${HOST}/bill/${融合业务主手机号码}/${账期}/${校验码}，    
 如：    
-http://bill.tj.10010.com/bill/15620001781/201706/49BAF1E913E08F937B5E6B27F590E6D3DD98EBE5
+http://bill.tj.10010.com/bill/15620001781/201706/49baf1e913e08f937b5e6b27f590e6d3dd98ebe5
 
 oracle 存储过程计算 url 校验码，使用 DBMS_CRYPTO 的 SHA-1 算法计算哈希值，
 [参考](http://docs.oracle.com/cd/B19306_01/appdev.102/b14258/d_crypto.htm#i1005082)
