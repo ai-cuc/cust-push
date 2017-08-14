@@ -69,7 +69,7 @@ exports.service = async (ctx, next) => {
   };
   let flowResp = {};
   try {
-    flowResp = await aopCall(flowReq);
+    // flowResp = await aopCall(flowReq);
     console.log(flowResp);
   } catch (e) {
     // 模拟一个
