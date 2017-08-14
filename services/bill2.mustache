@@ -15,6 +15,17 @@
       <div class="content">
         <h2 class="line-height-5">尊敬的用户，您好：</h2>
         <p style>您在联通定制智慧沃家组合版套餐主号码套餐 {{main.STANDARD_FEE}} 元，享受折扣 {{main.DISCNT_RATE}} 折，折扣优惠 {{main.DISCNT_FEE}} 元，赠款 {{main.WRITEOFF_FEE}} 元，实际收款 {{main.SJ_FEE}} 元。</p>
+        {{#if main.ADJUST}}
+          <p>其中(
+            {{#if main.ADJUST_BEFORE}}
+              帐前调账{{main.ADJUST_BEFORE}}元
+              {{#if main.ADJUST_AFTER}},{{/if}}
+            {{/if}}
+            {{#if main.ADJUST_AFTER}}
+              帐后调账{{main.ADJUST_AFTER}}元
+            {{/if}})
+          </p>
+        {{/if}}
         {{#if main.carryTotalFlow}}
           <p>主号码上月结转{{main.carryTotalFlow}}M 流量，截止目前剩余{{main.carryRemainFlow}}M 流量。</p>
         {{/if}}

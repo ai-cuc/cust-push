@@ -121,6 +121,10 @@ exports.service = async (ctx, next) => {
     const result = await c.execute('BEGIN p_sdr_individ_bill_out(:v_serial_number, :v_cycle_id, :v_cur, :v_cur1, :v_resultcode, :v_resulterrinfo); END;', bindvars);
     result.rows = await result.outBinds.v_cur.getRows(1000);
     result.main = (await result.outBinds.v_cur1.getRows(1))[0];
+    // 以下两行注释测试调账各种组合情形下页面的样子用，不要删除
+    // result.main.ADJUST_BEFORE = 10;
+    // result.main.ADJUST_AFTER = 10;
+    result.main.ADJUST = !!result.main.ADJUST_BEFORE || !!result.main.ADJUST_AFTER;
     if (flowResp && flowResp.carryTotalFlow) {
       result.main.carryTotalFlow = Math.floor(parseInt(flowResp.carryTotalFlow) / 1000);
       result.main.carryRemainFlow = Math.floor(parseInt(flowResp.carryRemainFlow) / 1000);
