@@ -67,9 +67,9 @@ exports.service = async (ctx, next) => {
       number: ctx.params.serial_number,
     },
   };
-  let flowResp;
+  let flowResp = {};
   try {
-    flowRes = await aopCall(flowReq);
+    flowResp = await aopCall(flowReq);
     console.log(flowResp);
   } catch (e) {
     // 模拟一个
