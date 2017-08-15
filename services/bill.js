@@ -124,6 +124,8 @@ exports.service = async (ctx, next) => {
     // 以下两行注释测试调账各种组合情形下页面的样子用，不要删除
     // result.main.ADJUST_BEFORE = 10;
     // result.main.ADJUST_AFTER = 10;
+    result.main.ADJUST_BEFORE = Number(result.main.ADJUST_BEFORE);
+    result.main.ADJUST_AFTER = Number(result.main.ADJUST_AFTER);
     result.main.ADJUST = !!result.main.ADJUST_BEFORE || !!result.main.ADJUST_AFTER;
     if (flowResp && flowResp.carryTotalFlow) {
       result.main.carryTotalFlow = Math.floor(parseInt(flowResp.carryTotalFlow) / 1000);
