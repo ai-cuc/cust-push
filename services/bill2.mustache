@@ -14,7 +14,14 @@
       <div class="logo"><img src="/img/logo.png"></div>
       <div class="content">
         <h2 class="line-height-5">尊敬的用户，您好：</h2>
-        <p style>您在联通定制智慧沃家组合版套餐主号码套餐 {{main.STANDARD_FEE}} 元，享受折扣 {{main.DISCNT_RATE}} 折，折扣优惠 {{main.DISCNT_FEE}} 元，赠款 {{main.WRITEOFF_FEE}} 元，实际应收 {{main.YS_FEE}} 元，实际收款 {{main.SJ_FEE}} 元。</p>
+        <p style>您在联通定制智慧沃家组合版套餐主号码套餐
+          <span>{{main.STANDARD_FEE}} 元</span>，
+          <span>享受折扣 {{main.DISCNT_RATE}} 折</span>，
+          <span>折扣优惠 {{main.DISCNT_FEE}} 元</span>，
+          <span>赠款 {{main.WRITEOFF_FEE}} 元</span>，
+          <span>实际应收 {{main.YS_FEE}} 元</span>
+          <span style="display:none;">实际收款 {{main.SJ_FEE}} 元</span>。
+        </p>
         {{#if main.ADJUST}}
           <p>其中(
             {{#if main.ADJUST_BEFORE}}
@@ -45,7 +52,7 @@
             <th>折扣优惠</th>
             <th>赠送金额</th>
             <th>实际应收</th>
-            <th>实际收款</th>
+            <th style="display:none;">实际收款</th>
           </tr>
         </thead>
         <tbody>
@@ -75,7 +82,7 @@
               <td>{{F12}}</td>
               <td>{{F13}}</td>
               <td>{{F14}}</td>
-              <td>{{F15}}</td>
+              <td style="display:none;">{{F15}}</td>
             </tr>
           {{/each}}
         </tbody>
