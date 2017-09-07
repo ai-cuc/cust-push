@@ -138,6 +138,7 @@ exports.service = async (ctx, next) => {
     ctx.body = template(result);
     // console.log(result);
   }).catch((e) => {
+    console.error(new Date());
     console.error('in bill');
     console.error(e);
     // ctx.throw(504, '系统忙，请稍后再试');
