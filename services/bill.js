@@ -8,6 +8,8 @@ const source = require('fs').readFileSync('./bill2.mustache', {
 
 const template = Handlebars.compile(source);
 
+let count = 0;
+
 exports.title = '按照主手机号码和账期获取账单详细一二级条目';
 exports.path = '/bill/:serial_number/:cycle_id/:hash';
 exports.request = {
@@ -49,7 +51,7 @@ exports.service = async (ctx, next) => {
   const hmac = crypto.createHmac('sha1', secret);
   hmac.update(new Buffer(`${ctx.params.serial_number}.${ctx.params.cycle_id}`, 'ascii'));
   const realHash = hmac.digest('hex');
-  console.log(realHash);
+  console.log(++count, new Date(), ctx.params.cycle_id, ctx.params.serial_number, realHash);
 
   if (realHash !== ctx.params.hash.toLowerCase()) { // 非系统构建的 url/hash
     // console.log(realHash);
